@@ -1,27 +1,29 @@
 one:
-  id: 1
   first_name: One
   last_name: McOne
   middle_name: John
   ssn: 111-11-1111
   dob: 1981-02-03
   gender: Male
-  phone: (202) 456-1111
   work_phone: (202) 586-5000
   home_phone: (202) 272-0167
   cell_phone: (202) 208-4743
   email: one@districthousing.org
-  nationality: USA
-  applicant_id: 1
-  mail_address_id: 1
-  state_of_birth: Virginia
+  country_of_birth: United States
+  applicant: one
+  mail_address: one
+  state_of_birth: VA
   city_of_birth: Springfield
-  citizenship: USA
+  citizenship: US Citizen
   driver_license_number: X12345678
-  driver_license_state: New York
+  driver_license_state: NY
+  driver_license_exp_date: 2020-01-01
+  marital_status: Married
+  student_status: Part-time
+  race: Asian
+  ethnicity: Hispanic
 
 two:
-  id: 2
   first_name: Two
   last_name: McTwo
   middle_name: Jane
@@ -29,12 +31,10 @@ two:
   dob: 2013-06-23 22:26:43
   gender: Female
   email: two@districthousing.org
-  applicant_id: 2
+  applicant: two
 
 hh1:
-  id: 3
-  phone: (333) 333-3333
-  applicant_id: 1
+  applicant: one
   first_name: HH1
   last_name: Schaefer
   middle_name: Charley
@@ -43,45 +43,68 @@ hh1:
   gender: Male
   created_at: 2014-11-15 00:04:18.434773000 Z
   updated_at: 2014-11-15 00:04:18.434773000 Z
-  phone: 1-202-858-8941 x40526
   work_phone: 788-243-3188 x97905
   home_phone: 1-437-053-5113 x41799
   cell_phone: 839.897.3785 x24946
-  citizenship: Mayotte
-  nationality: Bosnia and Herzegovina
+  citizenship: Other
+  country_of_birth: Bosnia and Herzegovina
   email: ryan@parker.info
-  race: Pacific Islander
+  race: Native Hawaiian or Other Pacific Islander
+  ethnicity: Hispanic or Latino
   student_status: Not a student
   marital_status: Married
-  applicant_id: 37
+  applicant: one
   occupation: Candlestick Maker
-  mail_address_id: 337
-  state_of_birth: Georgia
+  mail_address: one
+  state_of_birth: GA
   city_of_birth: Port Elvaside
   driver_license_number: '8308313763'
-  driver_license_state: West Virginia
+  driver_license_state: WV
+  driver_license_exp_date: 2018-02-01
 
 hh2:
-  id: 4
-  phone: (444) 444-4444
-  applicant_id: 1
+  cell_phone: (444) 444-4444
+  applicant: one
   first_name: HH2
+  mail_address: two
 
 ll1:
-  id: 5
-  phone: (555) 555-5555
-  applicant_id: 1
+  cell_phone: (555) 555-5555
+  applicant: one
   first_name: LL1
-  mail_address_id: 1
+  mail_address: one
 
 ll2:
-  id: 6
-  phone: (666) 666-6666
-  applicant_id: 1
+  cell_phone: (666) 666-6666
+  applicant: one
   first_name: LL2
-  mail_address_id: 2
+  mail_address: two
+
+contact1:
+  applicant: one
+  first_name: Contact1
+  last_name: Onesie
+  middle_name: Onerson
+  work_phone: 111-243-3188
+  home_phone: 111-053-5113
+  cell_phone: 111.897.3785
+  email: one@one.info
+  mail_address: one
+
+contact2:
+  applicant: one
+  first_name: Contact2
+  last_name: Twosie
+  middle_name: Twonerson
+  work_phone: 222-243-3188
+  home_phone: 222-053-5113
+  cell_phone: 222.444.3785
+  email: two@two.info
+  mail_address: two
 
 sample:
-  id: 7
   first_name: Mister
   last_name: Sample
+
+empty:
+  mail_address: empty

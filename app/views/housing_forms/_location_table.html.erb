@@ -1,0 +1,72 @@
+<% no_edit ||= false %>
+<% fill ||= false %>
+<%
+  table_class = "housing-location-table"
+  table_class = "#{table_class}-no-edit" if no_edit
+%>
+
+<table class="table <%= table_class %>">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th></th>
+      <th>Last Updated</th>
+      <th>Total Fields</th>
+      <th>Fillable Fields</th>
+      <th></th>
+      <th></th>
+      <% unless no_edit %>
+        <th></th>
+        <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% locations.each do |housing_form| %>
+    <%
+        download_path = download_blank_housing_form_path(housing_form)
+        download_path = download_housing_form_path(housing_form) if fill
+    %>
+    <tr>
+      <td><%= housing_form.name %></td>
+      <td><%= housing_form.location %></td>
+      <td>
+        <% if (housing_form.location) %>
+          <button class="btn btn-default btn-xs housing-location-show-map"
+            housing-data="
+              <%= {
+                id: housing_form.id,
+                name: housing_form.name,
+                location: housing_form.location,
+                latitude: housing_form.latitude,
+                longitude: housing_form.longitude
+                }.to_json
+              %>">
+            <span class="glyphicon glyphicon-map-marker" title="View on map"></span>
+          </button>
+        <% end %>
+      </td>
+      <td><%= housing_form.updated_at.strftime("%y-%m-%d %H:%M") %></td>
+      <td><%= housing_form.field_results(@applicant).count %></td>
+      <td><%= housing_form.known_fields(@applicant).count %></td>
+      <% if housing_form.path %>
+        <td><button class="btn btn-info view-pdf" path="<%= housing_form.path %>" name="<%= housing_form.name %>">View</button></td>
+        <td><%= link_to 'Download', download_path , class: "btn btn-success" %></td>
+      <% else %>
+        <td><button class="btn btn-default disabled">View</button></td>
+        <td><%= link_to 'Download Form', "#", class: "btn btn-default disabled" %></td>
+      <% end %>
+      <% unless no_edit %>
+        <% if housing_form.is_external? %>
+          <td></td>
+          <td></td>
+        <% else %>
+          <td><%= link_to 'Edit', edit_housing_form_path(housing_form) , class: "btn btn-info" %></td>
+          <td><%= link_to 'Delete', housing_form, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

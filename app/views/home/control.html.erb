@@ -1,15 +1,51 @@
 <!-- FIXME: This view is quickly turning into what should be applicants/index.html.erb -->
 
 <% unless @applicants.empty? %>
-  <p>Who is applying for housing?<p>
-  <% @applicants.each do |applicant| %>
-    <p>
-      <%= link_to applicant.description, applicant, class: "btn btn-lg btn-info"%>
-      <%= link_to 'Delete', applicant, class: "btn btn-lg btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
-    </p>
-  <% end %>
+  <h1>Clients</h1>
+  <p>
+    <%= link_to "Create New Applicant", new_applicant_path, class: "btn btn-lg btn-success"%>
+    <%= link_to "Pull Applicants from Salesforce", '/salesforce_applicants/sync', class: "btn btn-lg btn-success"%>
+  </p>
+  <table class="table applicants">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Address
+        </th>
+        <th/>
+        <th/>
+        <th/>
+      </tr>
+    </thead>
+    <tbody>
+      <% @applicants.each do |applicant| %>
+        <tr>
+          <td>
+            <%= applicant %>
+          </td>
+          <td>
+            <%= applicant.identity.mail_address %>
+          </td>
+          <td>
+            <%= link_to 'Select', applicant, class: "btn btn-success"%>
+          </td>
+          <td>
+            <% if applicant.salesforce_applicant.nil? %>
+              <%= link_to 'View in Salesforce', "#", class: "btn btn-default disabled" %>
+            <% else %>
+              <%= link_to 'View in Salesforce', "/salesforce_applicants/#{applicant.salesforce_applicant.id}/sync", class: "btn btn-info"%>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to 'Delete', applicant, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
   <p>Looks like you don't have any applicants yet.  You should create one!</p>
 <% end %>
-
-<p><%= link_to "Create a new applicant", new_applicant_path, class: "btn btn-lg btn-success"%></p>

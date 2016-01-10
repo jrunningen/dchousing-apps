@@ -1,9 +1,9 @@
 .wizard-container {
   background: $red;
 
-  .wizard-nav { 
-    list-style: none; 
-    overflow: hidden; 
+  .wizard-nav {
+    list-style: none;
+    overflow: hidden;
     font: 18px;
     margin: 0 auto;
     text-align: center;
@@ -24,7 +24,7 @@
         padding-top: 30px;
         width: 185px;
         color: #fff;
-        position: relative; 
+        position: relative;
         display: block;
         z-index: 0;
 
@@ -69,16 +69,16 @@
       &:first-child {
         margin-left: 15px;
       }
-      
+
       &.finished {
-      
+
         a {
 
           .check {
 
             .circle {
               background: #fff;
-                
+
               &:before {
                 content: "\e013";
               }
@@ -127,4 +127,26 @@
 			margin-bottom: 0px;
 		}
 	}
+}
+
+div.dataTables_filter label {
+  font-weight: normal;
+  float: right;
+  font-size: 20px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+  margin: 20px 0;
+  float: left;
+  text-align: right;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  margin-left: 0.5em;
+  font-size: 20px;
+}
+
+#housing-location-map {
+  height: 400px;
+  width: 100%;
 }

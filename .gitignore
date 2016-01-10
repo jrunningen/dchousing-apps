@@ -3,6 +3,8 @@ tags
 /public/forms/*.pdf
 .env
 
+/.c9
+
 *.rbc
 capybara-*.html
 .rspec
@@ -26,8 +28,5 @@ pickle-email-*.html
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
-<<<<<<< HEAD
 .vagrant
-=======
-.vagrant
->>>>>>> FETCH_HEAD
+/config/databasedotcom.yml

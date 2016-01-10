@@ -63,6 +63,10 @@ package { 'nodejs':
 
 # --- Ruby ---------------------------------------------------------------------
 
+exec { 'install_gpg_keys':
+  command => "${as_vagrant} 'gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3'",
+}
+
 exec { 'install_rvm':
   command => "${as_vagrant} 'curl -L https://get.rvm.io | bash -s stable'",
   creates => "${home}/.rvm/bin/rvm",
@@ -75,13 +79,13 @@ exec { 'install_ruby':
   # The rvm executable is more suitable for automated installs.
   #
   # use a ruby patch level known to have a binary
-  command => "${as_vagrant} '${home}/.rvm/bin/rvm install ruby-${ruby_version} --binary --autolibs=enabled && rvm alias create default ${ruby_version}'",
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm install ruby-${ruby_version} --binary --autolibs=enabled --max-time 30 && rvm alias create default ${ruby_version}'",
   creates => "${home}/.rvm/bin/ruby",
   require => Exec['install_rvm']
 }
 
 # RVM installs a version of bundler, but for edge Rails we want the most recent one.
-exec { "install_bundler": 
+exec { "install_bundler":
   command => "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'",
   creates => "${home}/.rvm/bin/bundle",
   require => Exec['install_ruby']
@@ -100,17 +104,19 @@ $rubyhome = "${home}/.rvm/gems/ruby-${ruby_version}/bin"
 
 stage { 'dc-housing': }
 
-class dc-housing-setup { 
+class dc-housing-setup {
   package { "pdftk":
     ensure => latest
   }
 
-  exec { "run_bundle_install":
-    command => "${as_vagrant} ${rubyhome}/bundle install",
-    cwd => "/vagrant",
-    logoutput => true,
-    timeout => 900 # Bundle install takes a while
-  }
+  # Getting a weird "Zlib::BufError buffer error" when calling this automatically
+  # Run it manually by calling "bundle install" after ssh-ing in
+  #exec { "run_bundle_install":
+  #  command => "${as_vagrant} ${rubyhome}/bundle install",
+  #  cwd => "/vagrant",
+  #  logoutput => true,
+  #  timeout => 900 # Bundle install takes a while
+  #}
 
   # Can't quite get this to work, so you'll have to do it manually the first time you log in to the server
   #exec { "rake_setup_db":
